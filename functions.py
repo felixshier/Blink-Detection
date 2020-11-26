@@ -31,7 +31,7 @@ def get_signals(signal_files, data_path, file_idx):
     
     return signals
 
-def get_blinks(label_files, data_path, file_idx, signals):
+def get_blinks(labSel_files, data_path, file_idx, signals):
     
     # inputs:
     # ouputs:
@@ -129,3 +129,33 @@ def get_labels(windows_times, blinks):
                 labels[i] = 1
     labels = np.array(labels)       
     return labels
+
+def create_dataset(data_path, fs = 250.0):
+    
+    # inputs:
+    # outputs:
+    
+    x = []
+    y = []
+    
+    signal_files, label_files = get_files(data_path)
+    
+    for i in range(len(signal_files)):
+        file_idx = i
+        signals = get_signals(signal_files, data_path, file_idx)
+        interval_corrupt, blinks = get_blinks(label_files, data_path, file_idx, signals)
+        time = signals[:,0]
+        signal = signals[:,1]
+        filtered_signal = butter_filter(signal, fs, fc = 1)
+        windows, windows_times = get_windows(signal, time, 500, 250)
+        cleaned_windows, cleaned_windows_times = clean_windows(windows, windows_times, interval_corrupt)
+        labels = get_labels(cleaned_windows_times, blinks)
+        
+        for j in range(len(cleaned_windows)):
+            x.append(cleaned_windows[j])
+            y.append(labels[j])
+        
+    x = np.array(x)
+    y = np.array(y)
+        
+    return x, y

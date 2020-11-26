@@ -7,6 +7,5 @@ fs = 250.0
 x, y, wt = create_dataset(data_path)
 
 s = 11
-
 plt.title(y[s])
 plt.plot(wt[s], x[s])

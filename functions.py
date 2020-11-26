@@ -31,7 +31,7 @@ def get_signals(signal_files, data_path, file_idx):
     
     return signals
 
-def get_labels(label_files, data_path, file_idx):
+def get_blinks(label_files, data_path, file_idx, signals):
     
     # inputs:
     # ouputs:
@@ -113,3 +113,19 @@ def butter_filter(signal, fs, fc):
     filtered_signal = filtfilt(b, a, signal)
     
     return np.array(filtered_signal)
+
+def get_labels(windows_times, blinks):
+    
+    # inputs:
+    # outputs:
+    
+    labels = [0 for _ in range(len(windows_times))]
+    
+    for i in range(len(windows_times)):
+        w_start = windows_times[i][0]
+        w_end = windows_times[i][-1]
+        for j in range(len(blinks)):
+            if (blinks[j][0] >= w_start and blinks[j][0] <= w_end):
+                labels[i] = 1
+    labels = np.array(labels)       
+    return labels

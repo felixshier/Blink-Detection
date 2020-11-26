@@ -31,7 +31,7 @@ def get_signals(signal_files, data_path, file_idx):
     
     return signals
 
-def get_blinks(labSel_files, data_path, file_idx, signals):
+def get_blinks(label_files, data_path, file_idx, signals):
     
     # inputs:
     # ouputs:
@@ -147,7 +147,7 @@ def create_dataset(data_path, fs = 250.0):
         time = signals[:,0]
         signal = signals[:,1]
         filtered_signal = butter_filter(signal, fs, fc = 1)
-        windows, windows_times = get_windows(signal, time, 500, 250)
+        windows, windows_times = get_windows(filtered_signal, time, 500, 250)
         cleaned_windows, cleaned_windows_times = clean_windows(windows, windows_times, interval_corrupt)
         labels = get_labels(cleaned_windows_times, blinks)
         

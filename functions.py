@@ -135,8 +135,9 @@ def create_dataset(data_path, fs = 250.0):
     # inputs:
     # outputs:
     
-    x = []
-    y = []
+    x = [] # windows
+    y = [] # window labels
+    wt = [] # window times
     
     signal_files, label_files = get_files(data_path)
     
@@ -154,8 +155,9 @@ def create_dataset(data_path, fs = 250.0):
         for j in range(len(cleaned_windows)):
             x.append(cleaned_windows[j])
             y.append(labels[j])
+            wt.append(cleaned_windows_times[j])
         
     x = np.array(x)
     y = np.array(y)
-        
-    return x, y
+    wt = np.array(wt)    
+    return x, y, wt

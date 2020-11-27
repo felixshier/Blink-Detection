@@ -1,6 +1,7 @@
 import os
 import numpy as np
 from scipy.signal import *
+from scipy.fft import fft
 import matplotlib
 import matplotlib.pyplot as plt
 import csv
@@ -103,13 +104,13 @@ def clean_windows(windows, windows_times, interval_corrupt):
     cleaned_windows_times = np.array(cleaned_windows_times)
     return cleaned_windows, cleaned_windows_times
 
-def butter_filter(signal, fs, fc):
+def butter_filter(signal, fs, fc, btype = 'low'):
     
     # inputs:
     # outputs:
     
     w = fc / (fs / 2) # Normalize the frequency
-    b, a = butter(5, w, 'low')
+    b, a = butter(5, w, btype)
     filtered_signal = filtfilt(b, a, signal)
     
     return np.array(filtered_signal)
@@ -130,14 +131,14 @@ def get_labels(windows_times, blinks):
     labels = np.array(labels)       
     return labels
 
-def create_dataset(data_path, fs = 250.0):
+def create_dataset(data_path, fs = 250.0, fc_low = 1, fc_high = 1):
     
     # inputs:
     # outputs:
     
-    x = [] # windows
-    y = [] # window labels
-    wt = [] # window times
+    X = []
+    Y = []
+    Wt = []
     
     signal_files, label_files = get_files(data_path)
     
@@ -147,17 +148,19 @@ def create_dataset(data_path, fs = 250.0):
         interval_corrupt, blinks = get_blinks(label_files, data_path, file_idx, signals)
         time = signals[:,0]
         signal = signals[:,1]
-        filtered_signal = butter_filter(signal, fs, fc = 1)
+        filtered_signal = butter_filter(signal, fs, fc = fc_high, btype = 'high')
+        #filtered_signal = butter_filter(filtered_signal, fs, fc = fc_low)
         windows, windows_times = get_windows(filtered_signal, time, 500, 250)
         cleaned_windows, cleaned_windows_times = clean_windows(windows, windows_times, interval_corrupt)
         labels = get_labels(cleaned_windows_times, blinks)
         
         for j in range(len(cleaned_windows)):
-            x.append(cleaned_windows[j])
-            y.append(labels[j])
-            wt.append(cleaned_windows_times[j])
+            X.append(cleaned_windows[j])
+            Y.append(labels[j])
+            Wt.append(cleaned_windows_times[j])
         
-    x = np.array(x)
-    y = np.array(y)
-    wt = np.array(wt)    
-    return x, y, wt
+    X = np.array(X)
+    Y = np.array(Y)
+    Wt = np.array(Wt)
+        
+    return X, Y, Wt

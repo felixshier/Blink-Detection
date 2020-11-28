@@ -16,18 +16,20 @@ BLINK: A Fully Automated Unsupervised Algorithm for Eye-Blink Detection in EEG S
 
 The file functions.py contains all functions used to process the data prior to modelling. These functions can be used to split and label the original raw EEG signals into filtered two second intervals with binary classifications.
 
-Below are examples of the raw EEG signals and and the filtered two second intervals with binary classifications:
+Below is one of the raw EEG signals prior to processing:
 
 <p align="center">
   <img src="images/raw-eeg-signal.png" width="400" title="Raw EEG Signal">
 </p>
+
+Once processed, the dataset was populated with filtered intervals such as the following:
 
 <p align = "center">
   <img src="images/blink-processed.png" width="400" title="Signal Interval with Blink Classification Post Processing"/>
   <img src="images/non-blink-processed.png" width="400" title="Classified Non-Blink Interval Post Processing"/>
 </p>
 
-## Model
+## Model Architecture
 
 <p align="center">
   <img src="images/model-architecture.png" width="400" title="Model Architecture">
@@ -36,3 +38,7 @@ Below are examples of the raw EEG signals and and the filtered two second interv
 ## Results
 
 The model designed achieved a peak accuracy of 95%.
+
+## Future Work
+
+Performance could be enhanced through further experimentation with filtering, fourier transforms, or improved labeling techniques.

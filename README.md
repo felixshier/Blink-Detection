@@ -16,26 +16,23 @@ BLINK: A Fully Automated Unsupervised Algorithm for Eye-Blink Detection in EEG S
 
 The file functions.py contains all functions used to process the data prior to modelling. These functions can be used to split and label the original raw EEG signals into filtered two second intervals with binary classifications.
 
+Below are examples of the raw EEG signals and and the filtered two second intervals with binary classifications:
+
 <p align="center">
-  <img src="images/raw-eeg-signal.png" width="600" title="Raw EEG Signal">
+  <img src="images/raw-eeg-signal.png" width="400" title="Raw EEG Signal">
 </p>
 
-<p float = "left">
-  <img src="images/blink-processed.png" width="300" title="Signal Interval with Blink Classification Post Processing"/>
-  <img src="images/non-blink-processed.png" width="300" title="Classified Non-Blink Interval Post Processing"/>
+<p align = "center">
+  <img src="images/blink-processed.png" width="400" title="Signal Interval with Blink Classification Post Processing"/>
+  <img src="images/non-blink-processed.png" width="400" title="Classified Non-Blink Interval Post Processing"/>
 </p>
 
 ## Model
 
 <p align="center">
-  <img src="images/model-architecture.png" width="600" title="Model Architecture">
+  <img src="images/model-architecture.png" width="400" title="Model Architecture">
 </p>
 
 ## Results
 
 The model designed achieved a peak accuracy of 95%.
-
-<p float = "left">
-  <img src="images/blink-prediction.png" width="300" title="Signal Interval with Blink Classification Post Processing"/>
-  <img src="images/non-blink-prediction.png" width="300" title="Classified Non-Blink Interval Post Processing"/>
-</p>

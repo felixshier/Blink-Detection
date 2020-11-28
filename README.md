@@ -1,6 +1,6 @@
 # Blink-Detection
 
-Blink-Detection is a repository designed to classify blinks in raw EEG signals using a 1D Convolutional Neural Network (CNN). 
+Blink-Detection is a repository designed to classify blinks in raw EEG signals using a 1D Convolutional Neural Network (CNN). When trained on the processed dataset (processed using functions from functions.py), the model achieved a peak accuracy of 95%.
 
 ## Data
 
